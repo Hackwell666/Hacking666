@@ -8,7 +8,6 @@ import zipfile
 import os
 import re
 from typing import List, Dict, Optional
-import xml.etree.ElementTree as ET
 
 
 class APKAnalyzer:

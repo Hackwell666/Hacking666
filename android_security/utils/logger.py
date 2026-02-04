@@ -4,7 +4,6 @@ Logging utilities for Android security testing
 
 import logging
 import sys
-from datetime import datetime
 
 
 def setup_logger(name: str = "android_security", level: int = logging.INFO,

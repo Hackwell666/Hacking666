@@ -5,7 +5,6 @@ A Python wrapper for Android Debug Bridge commands to interact with Android devi
 """
 
 import subprocess
-import json
 from typing import List, Optional, Dict
 
 

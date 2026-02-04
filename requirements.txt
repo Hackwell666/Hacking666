@@ -1,6 +1,4 @@
-"""
-Requirements file for Android Security Testing Framework
-"""
+# Requirements file for Android Security Testing Framework
 
 # No external dependencies required for basic functionality
 # The framework uses Python standard library
