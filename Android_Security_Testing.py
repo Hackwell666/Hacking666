@@ -7,7 +7,17 @@ import re
 import time
 import os
 import sys
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
+
+# Constants
+DANGEROUS_PERMISSIONS = [
+    'READ_CONTACTS', 'WRITE_CONTACTS', 'READ_SMS', 'SEND_SMS',
+    'READ_CALL_LOG', 'CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION',
+    'ACCESS_COARSE_LOCATION', 'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE'
+]
+
+MAX_PACKAGES_TO_CHECK = 20
+MAX_PACKAGES_TO_REPORT = 50
 
 class AndroidSecurityTester:
     """
@@ -96,10 +106,6 @@ class AndroidSecurityTester:
                 'dangerous': []
             }
             
-            dangerous_perms = ['READ_CONTACTS', 'WRITE_CONTACTS', 'READ_SMS', 'SEND_SMS',
-                             'READ_CALL_LOG', 'CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION',
-                             'ACCESS_COARSE_LOCATION', 'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']
-            
             lines = result.stdout.split('\n')
             in_permissions_section = False
             
@@ -118,7 +124,7 @@ class AndroidSecurityTester:
                             permissions['granted'].append(perm)
                         
                         # Check if dangerous
-                        for dangerous_perm in dangerous_perms:
+                        for dangerous_perm in DANGEROUS_PERMISSIONS:
                             if dangerous_perm in perm:
                                 permissions['dangerous'].append(perm)
                                 break
@@ -280,7 +286,7 @@ class AndroidSecurityTester:
         # Check for apps with dangerous permissions
         packages = self.extract_installed_packages()
         dangerous_apps = 0
-        for package in packages[:20]:  # Check first 20 apps
+        for package in packages[:MAX_PACKAGES_TO_CHECK]:
             perms = self.analyze_app_permissions(package)
             if len(perms.get('dangerous', [])) > 5:
                 dangerous_apps += 1
@@ -316,7 +322,7 @@ class AndroidSecurityTester:
             f.write("-" * 70 + "\n")
             packages = self.extract_installed_packages()
             f.write(f"Total packages: {len(packages)}\n")
-            for package in packages[:50]:  # First 50 packages
+            for package in packages[:MAX_PACKAGES_TO_REPORT]:
                 f.write(f"  - {package}\n")
             f.write("\n")
             
