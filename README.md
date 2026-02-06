@@ -25,6 +25,7 @@ all types of attacks being attempted on python
   - Vulnerability scanning
   - Security report generation
   - ADB-based exploitation capabilities
+  - 📖 [Detailed Usage Guide](ANDROID_TOOL_USAGE.md)
 
 ### Security Utilities
 - **pass_hashing.py** - Password hashing and cracking utilities
