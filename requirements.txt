@@ -1,0 +1,9 @@
+# Requirements file for Android Security Testing Framework
+
+# No external dependencies required for basic functionality
+# The framework uses Python standard library
+
+# Optional dependencies for enhanced functionality:
+# androguard>=3.4.0  # For advanced APK analysis
+# frida>=16.0.0      # For runtime instrumentation
+# requests>=2.31.0   # For network operations
